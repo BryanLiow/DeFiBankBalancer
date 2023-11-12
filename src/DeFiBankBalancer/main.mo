@@ -21,4 +21,8 @@ actor DeFiBankBalancer {
       Debug.print("Account don't have enough money to withdraw.");
     };
   };
+
+  public query func checkBalance() : async Nat {
+    return currentBalance;
+  };
 };
