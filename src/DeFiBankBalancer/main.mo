@@ -1,27 +1,48 @@
 import Debug "mo:base/Debug";
-import Nat "mo:base/Nat";
+import Time "mo:base/Time";
+import Float "mo:base/Float";
 
 actor DeFiBankBalancer {
-  stable var currentBalance = 300;
+  stable var currentBalance : Float = 300;
+  stable var startTime = Time.now();
+  stable var interestRate : Float = 0.1;
 
   Debug.print(debug_show (currentBalance));
 
-  public func topUp(amount : Nat) {
-    currentBalance += amount;
+  public func topUp(topUpAmount : Float) {
+    currentBalance += topUpAmount;
     Debug.print(debug_show (currentBalance));
   };
 
-  public func withdraw(amount : Nat) {
-    let tempCurrentBalance : Int = currentBalance - amount;
-    if (tempCurrentBalance - amount >= 0) {
-      currentBalance -= amount;
+  public func withdraw(withdrawAmount : Float) {
+    let tempCurrentBalance : Float = currentBalance - withdrawAmount;
+    if (tempCurrentBalance - withdrawAmount >= 0) {
+      currentBalance -= withdrawAmount;
       Debug.print(debug_show (currentBalance));
     } else {
       Debug.print("Account don't have enough money to withdraw.");
     };
   };
 
-  public query func checkBalance() : async Nat {
+  public query func checkBalance() : async Float {
     return currentBalance;
   };
+
+  public func compoundInterest() {
+    let currentTime = Time.now();
+    let timeElapsedNS = currentTime - startTime;
+    // Convert nanoseconds to years (1 year = 365.25 days to account for leap years)
+    let timeElapsedYears = Float.fromInt(timeElapsedNS) / 31_536_000_000_000_000.0;
+
+    // Assuming the interest is compounded once a year (n = 1),
+    // so the formula simplifies to P(1 + r)^t
+    let annualInterestRate = interestRate;
+    currentBalance := currentBalance * (1.0 + annualInterestRate) ** timeElapsedYears;
+    startTime := currentTime;
+  };
+
+  public func updateInterestRate(rate : Float) {
+    interestRate := rate;
+  };
+
 };
