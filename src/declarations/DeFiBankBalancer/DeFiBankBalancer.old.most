@@ -1,0 +1,6 @@
+// Version: 1.0.0
+actor {
+  stable var currentBalance : Float;
+  stable var interestRate : Float;
+  stable var startTime : Int
+};

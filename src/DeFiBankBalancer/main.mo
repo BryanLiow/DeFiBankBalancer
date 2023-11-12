@@ -28,6 +28,16 @@ actor DeFiBankBalancer {
     return currentBalance;
   };
 
+  public query func checkInterestRate() : async Float {
+    return interestRate;
+  };
+
+  public query func estimateBalanceAfterOneYear() : async Float {
+    // Use the compound interest formula for a duration of one year
+    let oneYear : Float = 1.0; // Duration of one year
+    return currentBalance * (1.0 + interestRate) ** oneYear;
+  };
+
   public func compoundInterest() {
     let currentTime = Time.now();
     let timeElapsedNS = currentTime - startTime;
@@ -38,6 +48,8 @@ actor DeFiBankBalancer {
     // so the formula simplifies to P(1 + r)^t
     let annualInterestRate = interestRate;
     currentBalance := currentBalance * (1.0 + annualInterestRate) ** timeElapsedYears;
+    Debug.print(debug_show (annualInterestRate));
+
     startTime := currentTime;
   };
 

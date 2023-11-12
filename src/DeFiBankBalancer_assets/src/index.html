@@ -1,22 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>DeFiBankBalancer</title>
-    <base href="/" />
-    <link rel="icon" href="favicon.ico" />
+    <title>DeFi Bank</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="icon" type="image/png" href="logo.png" />
     <link type="text/css" rel="stylesheet" href="main.css" />
+ 
   </head>
+
   <body>
-    <main>
-      <img src="logo.png" alt="DFINITY logo" />
+    <div class="container">
+      <img src="logo.png" alt="DBank logo" width="100"/>
+      <h1>Current Balance: €<span id="value">???</span></h1>
+      <h3 class="my-0">Current APR: <span id="current-interest-rate">???</span>%</h3>
+      <h3 class="my-0">Estimated Balance After 1 Year: €<span id="estimate-balance">???</span></h3>
+      <div class="divider"></div>
       <form action="#">
-        <label for="name">Enter your name: &nbsp;</label>
-        <input id="name" alt="Name" type="text" />
-        <button type="submit">Click Me!</button>
-      </form>
-      <section id="greeting"></section>
-    </main>
+      <h2>Amount to Top Up</h2>
+      <input id="input-amount" type="number" step="0.01" min=0 name="topUp" value=""/>
+      <h2>Amount to Withdraw</h2>
+      <input id="withdrawal-amount" type="number" name="withdraw" step="0.01" min=0 value=""/>
+      <h2>Update Interest Rate %</h2>
+      <input id="interest-rate" type="number" name="interestRate" step="0.01" min=0 value=""/>
+      <input id="submit-btn" type="submit" value="Finalise Transaction" />
+    </form>
+    </div>
   </body>
+
 </html>

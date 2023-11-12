@@ -1,6 +1,8 @@
 service : {
   checkBalance: () -> (float64) query;
+  checkInterestRate: () -> (float64) query;
   compoundInterest: () -> () oneway;
+  estimateBalanceAfterOneYear: () -> (float64) query;
   topUp: (float64) -> () oneway;
   updateInterestRate: (float64) -> () oneway;
   withdraw: (float64) -> () oneway;
